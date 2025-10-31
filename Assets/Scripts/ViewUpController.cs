@@ -13,9 +13,9 @@ public class ViewUpController : MonoBehaviour
     {
         player = GetComponent<Rigidbody>();
 
-        Zcoord[0] = -2;
+        Zcoord[0] = -3;
         Zcoord[1] = 0;
-        Zcoord[2] = 2;
+        Zcoord[2] = 3;
     }
     public void Move(float direction)
     {
