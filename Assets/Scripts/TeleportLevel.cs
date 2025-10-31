@@ -12,9 +12,14 @@ public class TeleportLevel : MonoBehaviour
         if (other.gameObject.tag == "Player")
             SceneManager.LoadScene(idLevel);
     }
-    
+
     public void Exit()
     {
         Application.Quit();
+    }
+    
+    public void TeleportOnLevel(int idLevel)
+    {
+        SceneManager.LoadScene(idLevel);
     }
 }
