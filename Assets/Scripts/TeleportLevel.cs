@@ -1,3 +1,4 @@
+using System.Collections;
 using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -6,20 +7,39 @@ using UnityEngine.SceneManagement;
 public class TeleportLevel : MonoBehaviour
 {
     [SerializeField] private int idLevel;
+    private Screen_fader screen;
 
+    private void Start()
+    {
+        screen = FindAnyObjectByType<Screen_fader>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
-            SceneManager.LoadScene(idLevel);
+        {
+            Invoke("ChangeLevel(idLevel)", 1f);
+        }
     }
 
     public void Exit()
     {
         Application.Quit();
     }
-    
-    public void TeleportOnLevel(int idLevel)
+
+    public void TeleportOnLevel(int level)
     {
-        SceneManager.LoadScene(idLevel);
+        screen.FadeIn();
+
+        StartCoroutine(FadeInCoroutine(level));
+    }
+    
+    private IEnumerator FadeInCoroutine(int level)
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        SceneManager.LoadScene(level);
+    }
+    private void ChangeLevel(int level)
+    {
+        SceneManager.LoadScene(level);
     }
 }

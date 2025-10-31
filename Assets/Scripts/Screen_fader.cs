@@ -1,42 +1,50 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Screen_fader : MonoBehaviour
 {
-    [SerializeField] private MovementController movementController;
-    [SerializeField] private float speedA;
-    private CameraController cameraController;
-    private Image image;
+    [SerializeField] private float fadeSpeed = 1f;
+    [SerializeField] private Image image;
     private Color colorIm;
 
     private void Start()
     {
-        cameraController = FindAnyObjectByType<CameraController>();
-        image = GetComponent<Image>();
+        //image = GetComponent<Image>();
         colorIm = image.color;
 
-        ImageVisible();
-
+        StartCoroutine(FadeOut());
     }
 
-
-    private void ImageVisible()
+    private IEnumerator FadeOut()
     {
-        if (colorIm.a > 0f)
+        Debug.Log("Осветление");
+        while (colorIm.a > 0f)
         {
-            colorIm.a -= speedA;
+            colorIm.a -= fadeSpeed * Time.deltaTime;
             image.color = colorIm;
-            Invoke("ImageVisible", 0.16f);
+            yield return null;
         }
+        
+        colorIm.a = 0f;
+        image.color = colorIm;
     }
 
-    public void ImageNoVisible()
+    public void FadeIn()
     {
-        if (colorIm.a < 1f)
+        StartCoroutine(FadeInCoroutine());
+    }
+
+    private IEnumerator FadeInCoroutine()
+    {
+        while (colorIm.a < 1f)
         {
-            colorIm.a += speedA;
+            colorIm.a += fadeSpeed * Time.deltaTime;
             image.color = colorIm;
-            Invoke("ImageNoVisible", 0.16f);
+            yield return null;
         }
+        
+        colorIm.a = 1f;
+        image.color = colorIm;
     }
 }
