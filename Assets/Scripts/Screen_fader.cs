@@ -4,7 +4,8 @@ using System.Collections;
 
 public class Screen_fader : MonoBehaviour
 {
-    [SerializeField] private float fadeSpeed = 1f;
+    private float numIter = 100;
+    [SerializeField] private float fadeTime = 0.5f;
     [SerializeField] private Image image;
     private Color colorIm;
 
@@ -18,12 +19,11 @@ public class Screen_fader : MonoBehaviour
 
     private IEnumerator FadeOut()
     {
-        Debug.Log("Осветление");
         while (colorIm.a > 0f)
         {
-            colorIm.a -= fadeSpeed * Time.deltaTime;
+            colorIm.a -= 1 / numIter;
             image.color = colorIm;
-            yield return null;
+            yield return new WaitForSeconds(fadeTime / numIter);
         }
         
         colorIm.a = 0f;
@@ -39,9 +39,9 @@ public class Screen_fader : MonoBehaviour
     {
         while (colorIm.a < 1f)
         {
-            colorIm.a += fadeSpeed * Time.deltaTime;
+            colorIm.a += 1 / numIter;
             image.color = colorIm;
-            yield return null;
+            yield return new WaitForSeconds(fadeTime / numIter);
         }
         
         colorIm.a = 1f;

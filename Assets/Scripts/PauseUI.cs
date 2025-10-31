@@ -3,7 +3,7 @@ using UnityEngine;
 public class PauseUI : MonoBehaviour
 {
     [SerializeField] private GameObject canvasPause;
-    private bool isPause = false;
+    public bool isPause = false;
     private CameraController cameraController;
 
     private void Start()
@@ -25,14 +25,14 @@ public class PauseUI : MonoBehaviour
         if (isPause == true)
         {
             canvasPause.SetActive(true);
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
         else
         {
             canvasPause.SetActive(false);
-            Time.timeScale = 1;
+            //Time.timeScale = 1;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }

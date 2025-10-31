@@ -6,6 +6,7 @@ public class SceneController : MonoBehaviour
     [SerializeField] private GameObject level;
     [SerializeField] private GameObject player;
     [SerializeField] private MovementController movementController;
+    [SerializeField] private PauseUI pauseUI;
     private PlayerController playerController;
     private float position = 0;
 
@@ -22,6 +23,7 @@ public class SceneController : MonoBehaviour
 
     void Update()
     {
+        if (pauseUI.isPause) return;
         if (playerController.isDead)
         {
             playerController.isDead = false;

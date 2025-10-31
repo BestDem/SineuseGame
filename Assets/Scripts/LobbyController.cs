@@ -4,6 +4,7 @@ public class LobbyController : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed;
+    [SerializeField] private PauseUI pauseUI;
     private Vector3 movement;
     private Rigidbody _rb;
 
@@ -14,7 +15,6 @@ public class LobbyController : MonoBehaviour
 
     private void Update()
     {
-
         movement.x = -Input.GetAxis("Horizontal");
         movement.z = -Input.GetAxis("Vertical");
 
@@ -34,6 +34,7 @@ public class LobbyController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (pauseUI.isPause) return;
         Move();
 
         if (movement != Vector3.zero)

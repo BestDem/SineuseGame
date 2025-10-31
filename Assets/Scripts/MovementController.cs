@@ -8,10 +8,12 @@ public class MovementController : MonoBehaviour
     [Header("Settings")]
     [SerializeField] public ViewSideController viewSide;
     [SerializeField] public ViewUpController viewUp;
+    [SerializeField] public PauseUI pauseUI;
     private bool ViweUp = true;
 
     private void Update()
     {
+        if (pauseUI.isPause) return;
         if (ViweUp)
             MovementUp();
         else

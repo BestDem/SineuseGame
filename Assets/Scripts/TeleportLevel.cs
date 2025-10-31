@@ -17,7 +17,9 @@ public class TeleportLevel : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Invoke("ChangeLevel(idLevel)", 1f);
+            //Invoke("ChangeLevel", 1f);
+            //StartCoroutine(FadeInCoroutine(1));
+            TeleportOnLevel(1);
         }
     }
 
@@ -38,8 +40,8 @@ public class TeleportLevel : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene(level);
     }
-    private void ChangeLevel(int level)
-    {
-        SceneManager.LoadScene(level);
-    }
+    //public void ChangeLevel()
+    //{
+    //    SceneManager.LoadScene(1);
+    //}
 }
