@@ -18,13 +18,13 @@ public class LobbyController : MonoBehaviour
         movement.x = -Input.GetAxis("Horizontal");
         movement.z = -Input.GetAxis("Vertical");
 
-        Move();
+        //Move();
     }
 
     private void Move()
     {
-        Vector3 moveRight = new Vector3(1, 0, 0) * movement.x * speed * Time.deltaTime;
-        Vector3 moveForvard = new Vector3(0, 0, 1) * movement.z * speed * Time.deltaTime;
+        Vector3 moveRight = new Vector3(1, 0, 0) * movement.x * speed * Time.fixedDeltaTime;
+        Vector3 moveForvard = new Vector3(0, 0, 1) * movement.z * speed * Time.fixedDeltaTime;
 
         transform.Translate(moveRight, Space.World);
         transform.Translate(moveForvard, Space.World);
@@ -34,6 +34,8 @@ public class LobbyController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Move();
+
         if (movement != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(movement);
