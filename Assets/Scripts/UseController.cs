@@ -6,7 +6,7 @@ public class UseController : MonoBehaviour
     [SerializeField] private float distationUse = 4;
     private float direction;
 
-    private void Update()
+    private void Update()    //можно подключить если на игрока будет лететь обьекты
     {
         Shoot();
     }
@@ -22,8 +22,8 @@ public class UseController : MonoBehaviour
             direction = Vector3.Distance(head.position, hit.transform.position);
             if (direction < distationUse)
             {
-                if (hit.collider.TryGetComponent(out IUseble use))  //складывание предметов в инвентарь пкм
-                {
+                if (hit.collider.TryGetComponent(out IUseble use)) 
+                { 
                     //активация руки
                     if (Input.GetKeyDown(KeyCode.E))
                         use.Use();

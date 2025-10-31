@@ -22,39 +22,21 @@ public class Screen_fader : MonoBehaviour
 
     private void ImageVisible()
     {
-        if (cameraController != null)
-        {
-            cameraController.UnlockCamera(false);
-            movementController.SetCanMove(false);
-        }
         if (colorIm.a > 0f)
         {
             colorIm.a -= speedA;
             image.color = colorIm;
             Invoke("ImageVisible", 0.16f);
         }
-        else
-        {
-            if (cameraController != null)
-            {
-                cameraController.UnlockCamera(true);
-                movementController.SetCanMove(true);
-            }
-        }
     }
 
     public void ImageNoVisible()
     {
-        if (cameraController != null)
-        {
-            cameraController.UnlockCamera(false);
-            movementController.SetCanMove(false);
-        }
         if (colorIm.a < 1f)
-            {
-                colorIm.a += speedA;
-                image.color = colorIm;
-                Invoke("ImageNoVisible", 0.16f);
-            }
+        {
+            colorIm.a += speedA;
+            image.color = colorIm;
+            Invoke("ImageNoVisible", 0.16f);
+        }
     }
 }
