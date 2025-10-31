@@ -1,33 +1,43 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MovementController : MonoBehaviour
 {
 
     [Header("Settings")]
-    [SerializeField] private CharacterController characterController;
-    private PlayerInput playerInput;
-
-    void Start()
-    {
-        playerInput = new PlayerInput();
-    }
+    [SerializeField] ViewSideController viewSide;
+    [SerializeField] ViewUpController viewUp;
+    private bool ViweUp = true;
 
     private void Update()
     {
-        playerInput.movement = Input.GetAxis("Vertical");
+        if (ViweUp)
+            MovementUp();
+        else
+            MovementSide();
     }
 
 
-    public void Movement(float speed)
+    public void MovementSide()
     {
-        //движение или спавн уровня
+        if (Input.GetKeyDown(KeyCode.W))
+            viewSide.Move(1);
+        else if (Input.GetKeyDown(KeyCode.S))
+            viewSide.Move(0);
+        else if (Input.GetKeyUp(KeyCode.S))
+            viewSide.Move(2);
+        else 
+            viewSide.Move(3);
     }
-}
 
-[System.Serializable]
-public class PlayerInput
-{
-    public float movement;
-    public bool isFire;
+    public void MovementUp()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+            viewUp.Move(1);
+        else if (Input.GetKeyDown(KeyCode.S))
+            viewUp.Move(0);
+        else
+            viewUp.Move(2);
+    }
 }
