@@ -61,4 +61,11 @@ public class ViewUpController : MonoBehaviour
             Debug.Log("Вниз больше нельзя");
         }
     }
+
+    public void Reset()
+    {
+        currentPos = 1;
+        Vector3 target = new Vector3(transform.position.x, transform.position.y, Zcoord[currentPos]);
+        transform.position = target;
+    }
 }

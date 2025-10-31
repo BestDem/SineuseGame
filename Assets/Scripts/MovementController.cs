@@ -6,8 +6,8 @@ public class MovementController : MonoBehaviour
 {
 
     [Header("Settings")]
-    [SerializeField] ViewSideController viewSide;
-    [SerializeField] ViewUpController viewUp;
+    [SerializeField] public ViewSideController viewSide;
+    [SerializeField] public ViewUpController viewUp;
     private bool ViweUp = true;
 
     private void Update()
@@ -39,5 +39,10 @@ public class MovementController : MonoBehaviour
             viewUp.Move(0);
         else
             viewUp.Move(2);
+    }
+
+    public void Reset()
+    {
+        viewUp.Reset();
     }
 }
