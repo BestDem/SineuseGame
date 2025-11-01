@@ -4,15 +4,16 @@ using System.Collections;
 
 public class Screen_fader : MonoBehaviour
 {
-    private float numIter = 100;
+    private float numIter = 10;
     [SerializeField] private float fadeTime = 0.5f;
-    [SerializeField] private Image image;
+    [SerializeField] private Image imageDark;
+    [SerializeField] private GameObject imageStartDelay;
     private Color colorIm;
 
     private void Start()
     {
         //image = GetComponent<Image>();
-        colorIm = image.color;
+        colorIm = imageDark.color;
 
         StartCoroutine(FadeOut());
     }
@@ -21,13 +22,17 @@ public class Screen_fader : MonoBehaviour
     {
         while (colorIm.a > 0f)
         {
-            colorIm.a -= 1 / numIter;
-            image.color = colorIm;
-            yield return new WaitForSeconds(fadeTime / numIter);
+            colorIm.a -= 1f/ numIter;
+            Debug.Log(colorIm.a);
+            imageDark.color = colorIm;
+            yield return new WaitForSecondsRealtime(fadeTime / numIter);
         }
         
+        
         colorIm.a = 0f;
-        image.color = colorIm;
+        imageDark.color = colorIm;
+
+        StartCoroutine(StartDelay());
     }
 
     public void FadeIn()
@@ -39,12 +44,19 @@ public class Screen_fader : MonoBehaviour
     {
         while (colorIm.a < 1f)
         {
-            colorIm.a += 1 / numIter;
-            image.color = colorIm;
-            yield return new WaitForSeconds(fadeTime / numIter);
+            colorIm.a += 1f / numIter;
+            imageDark.color = colorIm;
+            yield return new WaitForSecondsRealtime(fadeTime / numIter);
         }
-        
+
         colorIm.a = 1f;
-        image.color = colorIm;
+        imageDark.color = colorIm;
+    }
+    
+    private IEnumerator StartDelay()
+    {
+        imageStartDelay.SetActive(true);
+        yield return new WaitForSecondsRealtime(3);
+        imageStartDelay.SetActive(false);
     }
 }

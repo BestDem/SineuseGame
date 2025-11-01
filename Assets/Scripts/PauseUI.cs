@@ -9,6 +9,7 @@ public class PauseUI : MonoBehaviour
     private void Start()
     {
         cameraController = FindAnyObjectByType<CameraController>();
+        Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -28,14 +29,14 @@ public class PauseUI : MonoBehaviour
         if (isPause == true)
         {
             canvasPause.SetActive(true);
-            //Time.timeScale = 0;
+            Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
         else
         {
             canvasPause.SetActive(false);
-            //Time.timeScale = 1;
+            Time.timeScale = 1;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }

@@ -14,15 +14,17 @@ public class SkinController : MonoBehaviour
         singletonSkin = this;
 
         currentSkin = PlayerPrefs.GetInt("Skin", 0);
-    }
 
-    private void Start()
-    {
         Instantiate(prefSkin[currentSkin], spawnPointPlayer.transform.position, Quaternion.identity);
     }
-
+    
     public void OpenSkin(string nameSkin)
     {
         PlayerPrefs.SetInt(nameSkin, 1);
+    }
+
+    public Transform TransSpawn()
+    {
+        return spawnPointPlayer;
     }
 }

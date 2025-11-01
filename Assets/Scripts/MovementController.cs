@@ -6,11 +6,16 @@ public class MovementController : MonoBehaviour
 {
 
     [Header("Settings")]
-    [SerializeField] public ViewSideController viewSide;
-    [SerializeField] public ViewUpController viewUp;
+    public ViewSideController viewSide;
+    public ViewUpController viewUp;
     [SerializeField] public PauseUI pauseUI;
     private bool ViweUp = true;
 
+    private void Start()
+    {
+        viewSide = FindFirstObjectByType<ViewSideController>();
+        viewUp = FindFirstObjectByType<ViewUpController>();
+    }
     private void Update()
     {
         if (pauseUI.isPause) return;
@@ -41,11 +46,6 @@ public class MovementController : MonoBehaviour
             viewUp.Move(0);
         else
             viewUp.Move(2);
-    }
-
-    public void Reset()
-    {
-        viewUp.Reset();
     }
 
     public void ChangeController()
