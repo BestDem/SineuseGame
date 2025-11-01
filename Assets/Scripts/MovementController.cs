@@ -47,4 +47,9 @@ public class MovementController : MonoBehaviour
     {
         viewUp.Reset();
     }
+
+    public void ChangeController()
+    {
+        ViweUp = !ViweUp;
+    }
 }

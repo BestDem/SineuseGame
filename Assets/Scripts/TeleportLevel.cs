@@ -19,7 +19,7 @@ public class TeleportLevel : MonoBehaviour
         {
             //Invoke("ChangeLevel", 1f);
             //StartCoroutine(FadeInCoroutine(1));
-            TeleportOnLevel(1);
+            TeleportOnLevel(idLevel);
         }
     }
 
@@ -34,14 +34,15 @@ public class TeleportLevel : MonoBehaviour
 
         StartCoroutine(FadeInCoroutine(level));
     }
-    
+
     private IEnumerator FadeInCoroutine(int level)
     {
         yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene(level);
     }
-    //public void ChangeLevel()
-    //{
-    //    SceneManager.LoadScene(1);
-    //}
+    
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }
