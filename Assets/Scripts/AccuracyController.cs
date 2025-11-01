@@ -54,4 +54,40 @@ public class AccuracyController : MonoBehaviour
             return (1 - loss / cur_ind) * 100;
         }
     }
+
+    public void SaveAccuracy(int level)
+    {
+        List<float> accuracies = new List<float>();
+        int tries = PlayerPrefs.GetInt("Level_" + level + "_tries", 0);
+        for (int i = 0; i < tries; i++)
+        {
+            accuracies.Add(PlayerPrefs.GetFloat("Level_" + level + "_Accuracy_" + i, 0f));
+        }
+        accuracies.Add(getAccuracy());
+        accuracies.Sort();
+        if (accuracies.Count > 5)
+        {
+            accuracies.RemoveAt(5);
+        }
+        else
+        {
+            tries += 1;
+            PlayerPrefs.SetInt("Level_" + level + "_tries", tries);
+        }
+        for (int i = 0; i < accuracies.Count; i++)
+        {
+            PlayerPrefs.SetFloat("Level_" + level + "_Accuracy_" + i, accuracies[i]);
+        }
+    }
+
+    public List<float> GetAccuracies(int level)
+    {
+        List<float> accuracies = new List<float>();
+        int tries = PlayerPrefs.GetInt("Level_" + level + "_tries", 0);
+        for (int i = 0; i < tries; i++)
+        {
+            accuracies.Add(PlayerPrefs.GetFloat("Level_" + level + "_Accuracy_" + i, 0f));
+        }
+        return accuracies;
+    }
 }

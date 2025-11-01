@@ -10,16 +10,17 @@ public class TriggerChangeCamera : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("Коснулся");
         if (collider.gameObject.tag == "Player")
         {
             if (upCamera)
             {
+                Debug.Log("Камера в бок");
                 timelineToSide.Play();
                 upCamera = false;
             }
             else
             {
+                Debug.Log("Вверх");
                 timelineToUp.Play();
                 upCamera = true;
             }
