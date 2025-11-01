@@ -17,22 +17,40 @@ public class MusicValueChanged : MonoBehaviour
         soundVolume = PlayerPrefs.GetFloat("SoundVolume");
         volumeAudioMusic.value = musicVolume;
         volumeAudioSound.value = soundVolume;
-        audioMixerMusic.SetFloat("MusicVolume", PlayerPrefs.GetFloat("MusicVolume"));
-        audioMixerMusic.SetFloat("SoundVolume", PlayerPrefs.GetFloat("SoundVolume"));
+        audioMixerMusic.SetFloat("MusicVolume", musicVolume);
+        audioMixerMusic.SetFloat("SoundVolume", soundVolume);
     }
 
     public void SetVolumeMusic(float newVolume)
     {
         musicVolume = Mathf.Clamp01(newVolume);
-        audioMixerMusic.SetFloat("MusicVolume", Mathf.Log10(newVolume) * 20);
+        if (musicVolume <= 0)
+        {
+            musicVolume = -80;
+        }
+        else
+        {
+            musicVolume = Mathf.Log10(musicVolume) * 20;
+        }
+        audioMixerMusic.SetFloat("MusicVolume", musicVolume);
 
         PlayerPrefs.SetFloat("MusicVolume", musicVolume);
+        PlayerPrefs.Save();
     }
     public void SetVolumeSound(float newVolume)
     {
         soundVolume = Mathf.Clamp01(newVolume);
-        audioMixerSound.SetFloat("SoundVolume", Mathf.Log10(newVolume) * 20);
+        if (soundVolume <= 0)
+        {
+            soundVolume = -80;
+        }
+        else
+        {
+            soundVolume = Mathf.Log10(soundVolume) * 20;
+        }
+        audioMixerSound.SetFloat("SoundVolume", soundVolume);
 
         PlayerPrefs.SetFloat("SoundVolume", soundVolume);
+        PlayerPrefs.Save();
     }
 }
