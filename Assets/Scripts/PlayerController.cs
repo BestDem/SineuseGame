@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private GameObject deathMenu;
+    [SerializeField] private PauseUI pauseUI;
     public bool isDead = false;
     void Start()
     {
@@ -25,15 +26,19 @@ public class PlayerController : MonoBehaviour
     private void DeathMenuOn()
     {
         deathMenu.SetActive(true);
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
+        pauseUI.isPause = true;
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void CloseMenuDeath()
     {
         deathMenu.SetActive(false);
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
+        pauseUI.isPause = false;
         Cursor.visible = false;
         isDead = true;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

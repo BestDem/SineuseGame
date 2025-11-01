@@ -15,7 +15,10 @@ public class PauseUI : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!canvasPause.activeSelf && isPause) return;
             GetInput();
+        }    
     }
 
     public void GetInput()
