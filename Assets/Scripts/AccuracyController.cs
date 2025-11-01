@@ -10,7 +10,7 @@ public class AccuracyController : MonoBehaviour
 
     private float loss = 0;
 
-    [SerializeField] private float perfectDistance = 0.6f;
+    [SerializeField] private float perfectDistance = 0.4f;
     [SerializeField] private float maxDistance = 1f;
 
 
@@ -37,10 +37,9 @@ public class AccuracyController : MonoBehaviour
             //}
             if (cur_ind >= cords.Count) return;
             float cur_x = cords[cur_ind].position.x;
-            //Debug.Log(cur_x);
             loss += Mathf.Clamp01((Mathf.Abs(cur_x) - perfectDistance) / (maxDistance - perfectDistance));
             cur_ind++;
-            Debug.Log(getAccuracy());
+
         }
     }
 
