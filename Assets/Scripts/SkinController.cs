@@ -14,8 +14,8 @@ public class SkinController : MonoBehaviour
         singletonSkin = this;
 
         currentSkin = PlayerPrefs.GetInt("Skin", 0);
-
-        Instantiate(prefSkin[currentSkin], spawnPointPlayer.transform.position, Quaternion.identity);
+        Debug.Log(567);
+        Instantiate(prefSkin[currentSkin], spawnPointPlayer.transform.position, Quaternion.Euler(0,90,0));
     }
     
     public void OpenSkin(string nameSkin)

@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class PauseUI : MonoBehaviour
 {
+    [SerializeField] private GameObject deathMenu;
     [SerializeField] private GameObject canvasPause;
     public bool isPause = false;
+    public bool isPauseDeath = false;
     private CameraController cameraController;
 
     private void Start()
@@ -18,8 +20,12 @@ public class PauseUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!canvasPause.activeSelf && isPause) return;
-            GetInput();
-        }    
+            {
+                GetInput();
+            }
+        }
+        else if(isPauseDeath) 
+            deathMenu.SetActive(true); 
     }
 
     public void GetInput()
@@ -36,6 +42,7 @@ public class PauseUI : MonoBehaviour
         else
         {
             canvasPause.SetActive(false);
+            deathMenu.SetActive(false); 
             Time.timeScale = 1;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;

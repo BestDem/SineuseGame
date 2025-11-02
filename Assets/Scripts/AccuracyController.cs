@@ -31,13 +31,18 @@ public class AccuracyController : MonoBehaviour
 
     void Update()
     {
+        float cur_x = cords[cur_ind].position.x;
+        if (cur_x <= -4f)
+        {
+            cur_ind++;
+        }
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
         {
             //while (cords[cur_ind].position.x < 0) {
             //    cur_ind++;
             //}
             if (cur_ind >= cords.Count) return;
-            float cur_x = cords[cur_ind].position.x;
+            if (cur_x >= 4f) return;
             loss += Mathf.Clamp01((Mathf.Abs(cur_x) - perfectDistance) / (maxDistance - perfectDistance));
             cur_ind++;
             text.text = "Точность: " + getAccuracy().ToString("F2") + "%";
