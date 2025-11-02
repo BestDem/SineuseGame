@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Transform[] layers;
-    [SerializeField] private float[] coeff;
-    private int LayersCount;
-    void Start()
+    private GameObject player;
+    private ViewUpController playerr;
+    void Awake()
     {
-        LayersCount = layers.Length;
+        playerr = FindFirstObjectByType<ViewUpController>();
+        playerr.TryGetComponent(out GameObject tra);
+        tra = player;
     }
 
     void Update()
     {
-        for(int i = 0; i < LayersCount; i++)
-            layers[i].position = transform.position * coeff[i];
+        transform.position = player.transform.position;
     }
 }
