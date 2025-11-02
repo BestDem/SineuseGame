@@ -42,10 +42,6 @@ public class SceneController : MonoBehaviour
             Vector3 levelPos = level.transform.position;
             level.transform.position = new Vector3(position, levelPos.y, levelPos.z);
         }
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
-        {
-            Debug.Log(position);
-        }
 
     }
 

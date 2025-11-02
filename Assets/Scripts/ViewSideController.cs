@@ -35,6 +35,10 @@ public class ViewSideController : MonoBehaviour
 
     private void Jump()
     {
+        RaycastHit hit;
+        isGround = Physics.SphereCast(transform.position, 3f, Vector3.forward, out hit, layerMask);
+        Debug.Log(isGround);
+        Debug.Log(hit);
         if(isGround)
             player.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
