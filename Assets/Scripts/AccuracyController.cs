@@ -12,6 +12,7 @@ public class AccuracyController : MonoBehaviour
 
     [SerializeField] private float perfectDistance = 0.4f;
     [SerializeField] private float maxDistance = 1f;
+    [SerializeField] private UnityEngine.UI.Text text;
 
 
     void Awake()
@@ -39,7 +40,8 @@ public class AccuracyController : MonoBehaviour
             float cur_x = cords[cur_ind].position.x;
             loss += Mathf.Clamp01((Mathf.Abs(cur_x) - perfectDistance) / (maxDistance - perfectDistance));
             cur_ind++;
-
+            text.text = "Точность: " + getAccuracy().ToString("F2") + "%";
+            Debug.Log(getAccuracy());
         }
     }
 

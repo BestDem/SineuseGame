@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
+        Debug.Log(11111);
         if (collider.gameObject.layer == 6)
         {
             DeathMenuOn();
@@ -40,5 +41,14 @@ public class PlayerController : MonoBehaviour
     public bool IsDead()
     {
         return isDead;
+    }
+
+    void OnEnterCollision(Collision collision)
+    {
+        Debug.Log(11111);
+        if (collision.gameObject.layer == 6)
+        {
+            DeathMenuOn();
+        }
     }
 }
