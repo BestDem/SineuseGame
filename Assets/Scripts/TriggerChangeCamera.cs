@@ -14,13 +14,11 @@ public class TriggerChangeCamera : MonoBehaviour
         {
             if (upCamera)
             {
-                Debug.Log("Камера в бок");
                 timelineToSide.Play();
                 upCamera = false;
             }
             else
             {
-                Debug.Log("Вверх");
                 timelineToUp.Play();
                 upCamera = true;
             }

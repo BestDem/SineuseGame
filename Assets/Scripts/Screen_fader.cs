@@ -23,7 +23,6 @@ public class Screen_fader : MonoBehaviour
         while (colorIm.a > 0f)
         {
             colorIm.a -= 1f/ numIter;
-            Debug.Log(colorIm.a);
             imageDark.color = colorIm;
             yield return new WaitForSecondsRealtime(fadeTime / numIter);
         }
