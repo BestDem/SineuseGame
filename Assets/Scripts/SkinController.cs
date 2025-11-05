@@ -7,6 +7,7 @@ public class SkinController : MonoBehaviour
     [SerializeField] private GameObject[] prefSkin;
     [SerializeField] private Transform spawnPointPlayer;
     private int currentSkin;
+    private GameObject currentPlSkin;
 
     private void Awake()
     {
@@ -15,7 +16,7 @@ public class SkinController : MonoBehaviour
 
         currentSkin = PlayerPrefs.GetInt("Skin", 0);
         Debug.Log(567);
-        Instantiate(prefSkin[currentSkin], spawnPointPlayer.transform.position, Quaternion.Euler(0,90,0));
+        currentPlSkin = Instantiate(prefSkin[currentSkin], spawnPointPlayer.transform.position, Quaternion.Euler(0,90,0));
     }
     
     public void OpenSkin(string nameSkin)
@@ -27,4 +28,12 @@ public class SkinController : MonoBehaviour
     {
         return spawnPointPlayer;
     }
+
+    public void RespawnPlayerSkin(int id)
+    {
+        Destroy(currentPlSkin);
+
+        currentPlSkin = Instantiate(prefSkin[id], spawnPointPlayer.transform.position, Quaternion.Euler(0, 90, 0));
+    }
+    
 }

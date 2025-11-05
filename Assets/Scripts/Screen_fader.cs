@@ -7,7 +7,6 @@ public class Screen_fader : MonoBehaviour
     private float numIter = 10;
     [SerializeField] private float fadeTime = 0.5f;
     [SerializeField] private Image imageDark;
-    [SerializeField] private GameObject imageStartDelay;
     private Color colorIm;
 
     private void Start()
@@ -30,8 +29,6 @@ public class Screen_fader : MonoBehaviour
         
         colorIm.a = 0f;
         imageDark.color = colorIm;
-
-        StartCoroutine(StartDelay());
     }
 
     public void FadeIn()
@@ -50,12 +47,5 @@ public class Screen_fader : MonoBehaviour
 
         colorIm.a = 1f;
         imageDark.color = colorIm;
-    }
-    
-    private IEnumerator StartDelay()
-    {
-        imageStartDelay.SetActive(true);
-        yield return new WaitForSecondsRealtime(3);
-        imageStartDelay.SetActive(false);
     }
 }

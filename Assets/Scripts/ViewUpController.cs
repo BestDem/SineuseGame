@@ -39,7 +39,7 @@ public class ViewUpController : MonoBehaviour
         {
             currentPos = currentPos - 1;
             Vector3 targetUp = new Vector3(transform.position.x, transform.position.y, Zcoord[currentPos]);
-            transform.position = targetUp;
+            transform.position = Vector3.Lerp(transform.position, targetUp, speedChangeLin * Time.deltaTime);
         }
         else
         {

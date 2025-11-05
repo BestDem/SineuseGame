@@ -5,29 +5,19 @@ public class SceneController : MonoBehaviour
 {
     [SerializeField] private float speed;
     public float targetSpeed;
-    private float smooth = 5f;
     [SerializeField] private GameObject level;
-    [SerializeField] private MovementController movementController;
-    [SerializeField] private PauseUI pauseUI;
     [SerializeField] private SoundController soundController;
     private float position = 0;
     private bool isDelay = true;
-    private float velocity;
-
 
     void Awake()
     {
         targetSpeed = speed;
     }
 
-    void Start()
+    public void StartLevel()
     {
-        StartCoroutine(StartDelay());
-    }
-
-    IEnumerator StartDelay()
-    {
-        yield return new WaitForSecondsRealtime(3.5f);
+        AnimatorController.singltonAnim.PlayAnimations("isRun", true);
         soundController.Play2DSongByIndex(2);
         isDelay = false;
     }

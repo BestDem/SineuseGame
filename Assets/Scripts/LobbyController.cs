@@ -10,6 +10,7 @@ public class LobbyController : MonoBehaviour
 
     private void Start()
     {
+        pauseUI = FindFirstObjectByType<PauseUI>();
         _rb = GetComponent<Rigidbody>();
     }
 
@@ -25,8 +26,7 @@ public class LobbyController : MonoBehaviour
     {
         Vector3 moveRight = new Vector3(1, 0, 0) * movement.x * speed * Time.fixedDeltaTime;
         Vector3 moveForvard = new Vector3(0, 0, 1) * movement.z * speed * Time.fixedDeltaTime;
-
-        if (movement.x == 0f & movement.y == 0f)
+        if (movement.x == 0f && movement.z == 0f)
             AnimatorController.singltonAnim.PlayAnimations("isRun", false);
         else  
             AnimatorController.singltonAnim.PlayAnimations("isRun", true);
@@ -44,7 +44,7 @@ public class LobbyController : MonoBehaviour
         if (movement != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(movement);
-            _rb.rotation = Quaternion.Slerp(_rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+            _rb.rotation = targetRotation;
         }
     }
 }

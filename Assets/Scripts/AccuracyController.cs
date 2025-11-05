@@ -10,7 +10,7 @@ public class AccuracyController : MonoBehaviour
 
     private float loss = 0;
 
-    [SerializeField] private float perfectDistance = 0.4f;
+    [SerializeField] private float perfectDistance = 0.1f;
     [SerializeField] private float maxDistance = 1f;
     [SerializeField] private UnityEngine.UI.Text text;
 
@@ -46,11 +46,10 @@ public class AccuracyController : MonoBehaviour
             loss += Mathf.Clamp01((Mathf.Abs(cur_x) - perfectDistance) / (maxDistance - perfectDistance));
             cur_ind++;
             text.text = "Точность: " + getAccuracy().ToString("F2") + "%";
-            Debug.Log(getAccuracy());
         }
     }
 
-    float getAccuracy()
+    public float getAccuracy()
     {
         if (cur_ind == 0)
         {
@@ -68,10 +67,14 @@ public class AccuracyController : MonoBehaviour
         int tries = PlayerPrefs.GetInt("Level_" + level + "_tries", 0);
         for (int i = 0; i < tries; i++)
         {
-            accuracies.Add(PlayerPrefs.GetFloat("Level_" + level + "_Accuracy_" + i, 0f));
+            accuracies.Add(PlayerPrefs.GetFloat("Level_" + level + "_accuracy_" + i, 0f));
         }
         accuracies.Add(getAccuracy());
         accuracies.Sort();
+        accuracies.Reverse();
+
+        UnblockSkin(level);
+
         if (accuracies.Count > 5)
         {
             accuracies.RemoveAt(5);
@@ -83,7 +86,8 @@ public class AccuracyController : MonoBehaviour
         }
         for (int i = 0; i < accuracies.Count; i++)
         {
-            PlayerPrefs.SetFloat("Level_" + level + "_Accuracy_" + i, accuracies[i]);
+            Debug.Log(accuracies[i]);
+            PlayerPrefs.SetFloat("Level_" + level + "_accuracy_" + i, accuracies[i]);
         }
     }
 
@@ -93,8 +97,18 @@ public class AccuracyController : MonoBehaviour
         int tries = PlayerPrefs.GetInt("Level_" + level + "_tries", 0);
         for (int i = 0; i < tries; i++)
         {
-            accuracies.Add(PlayerPrefs.GetFloat("Level_" + level + "_Accuracy_" + i, 0f));
+            accuracies.Add(PlayerPrefs.GetFloat("Level_" + level + "_accuracy_" + i, 0f));
         }
         return accuracies;
     }
+
+    private void UnblockSkin(int level)
+    {
+        if (getAccuracy() > 95 && level == 1)
+            PlayerPrefs.SetInt("Skin_1", 1);
+
+        if (getAccuracy() > 95 && level == 2)
+            PlayerPrefs.SetInt("Skin_2", 1);
+    }
+
 }
