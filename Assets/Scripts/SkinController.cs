@@ -15,7 +15,6 @@ public class SkinController : MonoBehaviour
         singletonSkin = this;
 
         currentSkin = PlayerPrefs.GetInt("Skin", 0);
-        Debug.Log(567);
         currentPlSkin = Instantiate(prefSkin[currentSkin], spawnPointPlayer.transform.position, Quaternion.Euler(0,90,0));
     }
     

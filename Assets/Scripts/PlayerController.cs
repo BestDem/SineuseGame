@@ -49,7 +49,6 @@ public class PlayerController : MonoBehaviour
 
     void OnEnterCollision(Collision collision)
     {
-        Debug.Log(11111);
         if (collision.gameObject.layer == 6)
         {
             DeathMenuOn();

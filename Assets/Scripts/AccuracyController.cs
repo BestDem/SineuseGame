@@ -43,8 +43,6 @@ public class AccuracyController : MonoBehaviour
             //while (cords[cur_ind].position.x < 0) {
             //    cur_ind++;
             //}
-            Debug.Log(cur_x);
-            Debug.Log((Mathf.Abs(cur_x)) / (maxDistance - perfectDistance));
             if (cur_ind >= cords.Count) return;
             if (cur_x >= 15f) return;
             loss += Mathf.Clamp01((Mathf.Abs(cur_x) - perfectDistance) / (maxDistance - perfectDistance));
@@ -90,7 +88,6 @@ public class AccuracyController : MonoBehaviour
         }
         for (int i = 0; i < accuracies.Count; i++)
         {
-            Debug.Log(accuracies[i]);
             PlayerPrefs.SetFloat("Level_" + level + "_accuracy_" + i, accuracies[i]);
         }
     }

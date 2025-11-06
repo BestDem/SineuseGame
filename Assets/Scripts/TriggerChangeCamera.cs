@@ -12,7 +12,6 @@ public class TriggerChangeCamera : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            Debug.Log("Вошел");
             if (upCamera)
             {
                 timelineToSide.Play();
@@ -20,7 +19,6 @@ public class TriggerChangeCamera : MonoBehaviour
             }
             else
             {
-                Debug.Log("Обратно ");
                 timelineToUp.Play();
                 upCamera = true;
             }

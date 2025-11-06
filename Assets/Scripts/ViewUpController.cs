@@ -19,13 +19,13 @@ public class ViewUpController : MonoBehaviour
     }
     public void Move(float direction)
     {
-        if (direction == 0)    //вверх перешел
-        {
-            Up();
-        }
-        else if (direction == 1)  //вниз
+        if (direction == 0)    //вниз перешел
         {
             Down();
+        }
+        else if (direction == 1)  //вверх перешел
+        {
+            Up();
         }
         else
         {
@@ -35,33 +35,31 @@ public class ViewUpController : MonoBehaviour
 
     private void Up()
     {
-        Debug.Log("Вверх: " + currentPos);
-        if (currentPos != 0)
+        if (currentPos != 2)
         {
-            currentPos = currentPos - 1;
+            currentPos = currentPos + 1;
             Vector3 targetUp = new Vector3(transform.position.x, transform.position.y, Zcoord[currentPos]);
             transform.position = targetUp;
             //            transform.position = Vector3.Lerp(transform.position, targetUp, speedChangeLin * Time.deltaTime);
         }
         else
         {
-            Debug.Log("вверх нельзя");
+
         }
     }
 
     private void Down()
     {
-        Debug.Log("Вниз: " + currentPos);
-        if (currentPos != 2)
+        if (currentPos != 0)
         {
-            currentPos = currentPos + 1;
+            currentPos = currentPos - 1;
 
             Vector3 targetDown = new Vector3(transform.position.x, transform.position.y, Zcoord[currentPos]);
             transform.position = targetDown;
         }
         else
         {
-            Debug.Log("Вниз больше нельзя");
+
         }
     }
 

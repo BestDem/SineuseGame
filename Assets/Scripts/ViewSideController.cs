@@ -37,15 +37,12 @@ public class ViewSideController : MonoBehaviour
     {
         RaycastHit hit;
         isGround = Physics.SphereCast(transform.position, 3f, Vector3.forward, out hit, layerMask);
-        Debug.Log(isGround);
-        Debug.Log(hit);
         if(isGround)
             player.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
     
     private void Dend()
     {
-        Debug.Log("Пригнулся");
         //AnimatorController.singltonAnim.PlayAnimations("isDend", true);
     }
 }
