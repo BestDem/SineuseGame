@@ -7,17 +7,19 @@ public class AccuracyController : MonoBehaviour
     private List<Transform> cords = new List<Transform>();
 
     private int cur_ind = 0;
+    private int taps = 0;
 
     private float loss = 0;
 
-    [SerializeField] private float perfectDistance = 0.1f;
-    [SerializeField] private float maxDistance = 1f;
+    [SerializeField] private float perfectDistance;
+    [SerializeField] private float maxDistance;
     [SerializeField] private UnityEngine.UI.Text text;
+    [SerializeField] private GameObject triggers;
 
 
     void Awake()
     {
-        foreach (Transform trans in transform)
+        foreach (Transform trans in triggers.transform)
         {
             cords.Add(trans);
         }
@@ -32,7 +34,7 @@ public class AccuracyController : MonoBehaviour
     void Update()
     {
         float cur_x = cords[cur_ind].position.x;
-        if (cur_x <= -4f)
+        if (cur_x <= -1f)
         {
             cur_ind++;
         }
@@ -41,23 +43,25 @@ public class AccuracyController : MonoBehaviour
             //while (cords[cur_ind].position.x < 0) {
             //    cur_ind++;
             //}
+            Debug.Log(cur_x);
+            Debug.Log((Mathf.Abs(cur_x)) / (maxDistance - perfectDistance));
             if (cur_ind >= cords.Count) return;
-            if (cur_x >= 4f) return;
+            if (cur_x >= 15f) return;
             loss += Mathf.Clamp01((Mathf.Abs(cur_x) - perfectDistance) / (maxDistance - perfectDistance));
-            cur_ind++;
+            taps++;
             text.text = "Точность: " + getAccuracy().ToString("F2") + "%";
         }
     }
 
     public float getAccuracy()
     {
-        if (cur_ind == 0)
+        if (taps == 0)
         {
             return 100f;
         }
         else
         {
-            return (1 - loss / cur_ind) * 100;
+            return (1 - loss / taps) * 100;
         }
     }
 

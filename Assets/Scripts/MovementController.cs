@@ -6,15 +6,16 @@ public class MovementController : MonoBehaviour
 {
 
     [Header("Settings")]
-    public ViewSideController viewSide;
-    public ViewUpController viewUp;
-    [SerializeField] public PauseUI pauseUI;
+    private ViewSideController viewSide;
+    private ViewUpController viewUp;
+    private PauseUI pauseUI;
     private bool ViweUp = true;
 
     private void Start()
     {
         viewSide = FindFirstObjectByType<ViewSideController>();
         viewUp = FindFirstObjectByType<ViewUpController>();
+        pauseUI = FindFirstObjectByType<PauseUI>();
     }
     private void Update()
     {

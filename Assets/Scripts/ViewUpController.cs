@@ -35,11 +35,13 @@ public class ViewUpController : MonoBehaviour
 
     private void Up()
     {
+        Debug.Log("Вверх: " + currentPos);
         if (currentPos != 0)
         {
             currentPos = currentPos - 1;
             Vector3 targetUp = new Vector3(transform.position.x, transform.position.y, Zcoord[currentPos]);
-            transform.position = Vector3.Lerp(transform.position, targetUp, speedChangeLin * Time.deltaTime);
+            transform.position = targetUp;
+            //            transform.position = Vector3.Lerp(transform.position, targetUp, speedChangeLin * Time.deltaTime);
         }
         else
         {
@@ -49,6 +51,7 @@ public class ViewUpController : MonoBehaviour
 
     private void Down()
     {
+        Debug.Log("Вниз: " + currentPos);
         if (currentPos != 2)
         {
             currentPos = currentPos + 1;

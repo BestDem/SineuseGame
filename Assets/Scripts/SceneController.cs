@@ -7,6 +7,7 @@ public class SceneController : MonoBehaviour
     public float targetSpeed;
     [SerializeField] private GameObject level;
     [SerializeField] private SoundController soundController;
+    [SerializeField] private GameObject timer;
     private float position = 0;
     private bool isDelay = true;
 
@@ -20,6 +21,8 @@ public class SceneController : MonoBehaviour
         AnimatorController.singltonAnim.PlayAnimations("isRun", true);
         soundController.Play2DSongByIndex(2);
         isDelay = false;
+        //Destroy(timer);
+        timer.SetActive(false);
     }
 
     void Update()
