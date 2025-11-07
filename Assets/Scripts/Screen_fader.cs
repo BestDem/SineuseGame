@@ -21,7 +21,7 @@ public class Screen_fader : MonoBehaviour
     {
         while (colorIm.a > 0f)
         {
-            colorIm.a -= 1f/ numIter;
+            colorIm.a -= 1f / numIter;
             imageDark.color = colorIm;
             yield return new WaitForSecondsRealtime(fadeTime / numIter);
         }

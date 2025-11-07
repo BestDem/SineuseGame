@@ -1,24 +1,31 @@
 using System.Collections.Generic;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class ViewUpController : MonoBehaviour
 {
     [SerializeField] private float speedChangeLin = 3;
-    private int[] Zcoord = new int[3];
+    //private int[] Zcoord = new int[3];
     private Rigidbody player;
     private int currentPos = 1;
+    private bool isShifting = false;
+    private float shift = 3f;
+    private float shiftTime = 0.05f;
 
     private void Start()
     {
         player = GetComponent<Rigidbody>();
 
-        Zcoord[0] = -3;
-        Zcoord[1] = 0;
-        Zcoord[2] = 3;
+        //Zcoord[0] = -shift;
+        //Zcoord[1] = 0;
+        //Zcoord[2] = shift;
     }
     public void Move(float direction)
     {
+        if (isShifting) {
+            return;
+        }
         if (direction == 0)    //вниз перешел
         {
             Down();
@@ -38,8 +45,11 @@ public class ViewUpController : MonoBehaviour
         if (currentPos != 2)
         {
             currentPos = currentPos + 1;
-            Vector3 targetUp = new Vector3(transform.position.x, transform.position.y, Zcoord[currentPos]);
-            transform.position = targetUp;
+            //Vector3 targetUp = new Vector3(transform.position.x, transform.position.y, transform.position.z + shift);
+            //transform.position = targetUp;
+            StartCoroutine(DoShift(1f));
+            isShifting = true;
+
             //            transform.position = Vector3.Lerp(transform.position, targetUp, speedChangeLin * Time.deltaTime);
         }
         else
@@ -54,8 +64,10 @@ public class ViewUpController : MonoBehaviour
         {
             currentPos = currentPos - 1;
 
-            Vector3 targetDown = new Vector3(transform.position.x, transform.position.y, Zcoord[currentPos]);
-            transform.position = targetDown;
+            //Vector3 targetDown = new Vector3(transform.position.x, transform.position.y, transform.position.z - shift);
+            //transform.position = targetDown;
+            StartCoroutine(DoShift(-1f));
+            isShifting = true;
         }
         else
         {
@@ -66,7 +78,24 @@ public class ViewUpController : MonoBehaviour
     public void Reset()
     {
         currentPos = 1;
-        Vector3 target = new Vector3(transform.position.x, transform.position.y, Zcoord[currentPos]);
+        //Vector3 target = new Vector3(transform.position.x, transform.position.y, Zcoord[currentPos]);
+        Vector3 target = new Vector3(transform.position.x, transform.position.y, 0);
         transform.position = target;
+    }
+    IEnumerator DoShift(float direction)
+    {
+        int numIter = 10;
+        float dz = shift / numIter * direction;
+        float dtime = shiftTime / numIter;
+        for (int i = 0; i < numIter; i++) 
+        {
+            yield return new WaitForSecondsRealtime(dtime);
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + dz);
+            if (GameManager.isPauseDeath)
+            {
+                break;
+            }
+        }
+        isShifting = false;
     }
 }
