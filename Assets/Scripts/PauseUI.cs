@@ -14,6 +14,12 @@ public class PauseUI : MonoBehaviour
     {
         GameManager.isPause = false;
         GameManager.isPauseDeath = false;
+        GameManager.OnDeath += ShowDeathMenu;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnDeath -= ShowDeathMenu;
     }
 
     private void Start()
@@ -35,8 +41,8 @@ public class PauseUI : MonoBehaviour
                 GetInput();
             }
         }
-        else if (GameManager.isPauseDeath)
-            deathMenu.SetActive(true);
+//        else if (GameManager.isPauseDeath)
+//            deathMenu.SetActive(true);
     }
 
 
@@ -54,10 +60,15 @@ public class PauseUI : MonoBehaviour
         else if (!GameManager.isPause && !GameManager.isPauseDeath)
         {
             canvasPause.SetActive(false);
-            deathMenu.SetActive(false);
+//            deathMenu.SetActive(false);
             Time.timeScale = 1;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+    }
+
+    private void ShowDeathMenu()
+    {
+        deathMenu.SetActive(true);
     }
 }

@@ -19,16 +19,12 @@ public class AccuracyController : MonoBehaviour
 
     void Awake()
     {
+        GameManager.OnMovement += UpdateAccuracy;
         foreach (Transform trans in triggers.transform)
         {
             cords.Add(trans);
         }
         cords.Sort((a, b) => a.position.x.CompareTo(b.position.x));
-    }
-
-    void Start()
-    {
-
     }
 
     void Update()
@@ -42,17 +38,34 @@ public class AccuracyController : MonoBehaviour
         {
             cur_ind++;
         }
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
+        //if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
+        //{
+        //    //while (cords[cur_ind].position.x < 0) {
+        //    //    cur_ind++;
+        //    //}
+        //    if (cur_ind >= cords.Count) return;
+        //    if (cur_x >= 15f) return;
+        //    loss += Mathf.Clamp01((Mathf.Abs(cur_x) - perfectDistance) / (maxDistance - perfectDistance));
+        //    taps++;
+        //    text.text = "Точность: " + getAccuracy().ToString("F2") + "%";
+        //}
+    }
+
+    void UpdateAccuracy()
+    {
+        //while (cords[cur_ind].position.x < 0) {
+        //    cur_ind++;
+        //}
+        float cur_x = 0;
+        if (cur_ind < cords.Count)
         {
-            //while (cords[cur_ind].position.x < 0) {
-            //    cur_ind++;
-            //}
-            if (cur_ind >= cords.Count) return;
-            if (cur_x >= 15f) return;
-            loss += Mathf.Clamp01((Mathf.Abs(cur_x) - perfectDistance) / (maxDistance - perfectDistance));
-            taps++;
-            text.text = "Точность: " + getAccuracy().ToString("F2") + "%";
+            cur_x = cords[cur_ind].position.x;
         }
+        if (cur_ind >= cords.Count) return;
+        if (cur_x >= 15f) return;
+        loss += Mathf.Clamp01((Mathf.Abs(cur_x) - perfectDistance) / (maxDistance - perfectDistance));
+        taps++;
+        text.text = "Точность: " + getAccuracy().ToString("F2") + "%";
     }
 
     public float getAccuracy()
@@ -114,6 +127,11 @@ public class AccuracyController : MonoBehaviour
 
         if (getAccuracy() > 95 && level == 2)
             PlayerPrefs.SetInt("Skin_2", 1);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnMovement -= UpdateAccuracy;
     }
 
 }

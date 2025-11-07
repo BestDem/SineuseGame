@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //[SerializeField] private GameObject deathMenu;
-    private PauseUI pauseUI;
-    public static event Action DeathAction;
-    private bool isDead = false;
 
     private void Awake()
     {
-        pauseUI = FindFirstObjectByType<PauseUI>();
+
     }
 
     void OnTriggerEnter(Collider collider)
@@ -24,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private void DeathMenuOn()
     {
-        //DeathAction?.Invoke();
+        GameManager.TriggerDeath();
         //deathMenu.SetActive(true);
         Time.timeScale = 0;
         GameManager.isPauseDeath = true;
@@ -38,13 +34,7 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 1;
         GameManager.isPauseDeath = false;
         Cursor.visible = false;
-        isDead = true;
         Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    public bool IsDead()
-    {
-        return isDead;
     }
 
     void OnEnterCollision(Collision collision)

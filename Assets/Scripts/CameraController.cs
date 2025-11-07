@@ -7,8 +7,8 @@ public class CameraController : MonoBehaviour
     void Awake()
     {
         playerr = FindFirstObjectByType<ViewUpController>();
-        playerr.TryGetComponent(out GameObject tra);
-        tra = player;
+        //playerr.TryGetComponent(out GameObject tra);
+        //tra = player;
     }
 
     void Update()
