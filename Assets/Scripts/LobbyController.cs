@@ -43,8 +43,12 @@ public class LobbyController : MonoBehaviour
 
         if (movement != Vector3.zero)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(movement);
-            _rb.rotation = targetRotation;
+            Quaternion targetRotation = Quaternion.LookRotation(movement.normalized);
+            _rb.rotation = Quaternion.RotateTowards(
+            _rb.rotation,
+            targetRotation,
+            rotationSpeed * Time.fixedDeltaTime
+        );
         }
     }
 }
