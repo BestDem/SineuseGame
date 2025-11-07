@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
         //DeathAction?.Invoke();
         //deathMenu.SetActive(true);
         Time.timeScale = 0;
-        pauseUI.isPauseDeath = true;
+        GameManager.isPauseDeath = true;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     {
         //deathMenu.SetActive(false);
         Time.timeScale = 1;
-        pauseUI.isPauseDeath = false;
+        GameManager.isPauseDeath = false;
         Cursor.visible = false;
         isDead = true;
         Cursor.lockState = CursorLockMode.Locked;

@@ -9,10 +9,10 @@ public class SceneController : MonoBehaviour
     [SerializeField] private SoundController soundController;
     [SerializeField] private GameObject timer;
     private float position = 0;
-    private bool isDelay = true;
 
     void Awake()
     {
+        GameManager.delayBeforeStart = true;
         targetSpeed = speed;
     }
 
@@ -20,14 +20,14 @@ public class SceneController : MonoBehaviour
     {
         AnimatorController.singltonAnim.PlayAnimations("isRun", true);
         soundController.Play2DSongByIndex(2);
-        isDelay = false;
+        GameManager.delayBeforeStart = false;
         //Destroy(timer);
         timer.SetActive(false);
     }
 
     void Update()
     {
-        if (isDelay == false)
+        if (!GameManager.delayBeforeStart)
         {
             speed = targetSpeed;
             position -= speed * Time.deltaTime;
@@ -40,7 +40,7 @@ public class SceneController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //if (isDelay == false)
+        //if (GameManager.delayBeforeStart == false)
         //{
         //    speed = Mathf.Lerp(speed, targetSpeed, smooth * Time.fixedDeltaTime);
         //}

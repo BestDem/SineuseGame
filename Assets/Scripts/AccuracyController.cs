@@ -33,7 +33,11 @@ public class AccuracyController : MonoBehaviour
 
     void Update()
     {
-        float cur_x = cords[cur_ind].position.x;
+        float cur_x = 0;
+        if (cur_ind < cords.Count)
+        {
+            cur_x = cords[cur_ind].position.x;
+        }
         if (cur_x <= -1f)
         {
             cur_ind++;

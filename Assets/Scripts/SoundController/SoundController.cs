@@ -61,12 +61,12 @@ public class SoundController : MonoBehaviour
         _prefSound.TryGetComponent(out AudioSource _audioSource);
         while (true) 
         {
-            yield return new WaitUntil(() => !_audioSource.isPlaying || pauseUI.isPause);
+            yield return new WaitUntil(() => !_audioSource.isPlaying || GameManager.isPause || GameManager.isPauseDeath);
 
-            if (pauseUI.isPause)
+            if (GameManager.isPause)
             {
                 _audioSource.Pause();
-                yield return new WaitUntil(() => !pauseUI.isPause);
+                yield return new WaitUntil(() => !GameManager.isPause);
                 _audioSource.UnPause();
             }
             else

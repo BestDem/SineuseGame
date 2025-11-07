@@ -19,13 +19,12 @@ public class MovementController : MonoBehaviour
     }
     private void Update()
     {
-        if (pauseUI.isPause) return;
+        if (GameManager.isPause || GameManager.isPauseDeath || GameManager.delayBeforeStart) return;
         if (ViweUp)
             MovementUp();
         else
             MovementSide();
     }
-
 
     public void MovementSide()
     {

@@ -38,7 +38,7 @@ public class LobbyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (pauseUI.isPause) return;
+        if (GameManager.isPause) return;
         Move();
 
         if (movement != Vector3.zero)

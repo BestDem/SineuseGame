@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -8,8 +9,12 @@ public class PauseUI : MonoBehaviour
     [SerializeField] private GameObject deathMenu;
     [SerializeField] private GameObject canvasPause;
     [SerializeField][CanBeNull] private PlayableDirector tartDelayTimeline;
-    public bool isPause = false;
-    public bool isPauseDeath = false;
+
+    private void Awake()
+    {
+        GameManager.isPause = false;
+        GameManager.isPauseDeath = false;
+    }
 
     private void Start()
     {
@@ -25,28 +30,28 @@ public class PauseUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!canvasPause.activeSelf && isPause) return;
+            if (!canvasPause.activeSelf && GameManager.isPause) return;
             {
                 GetInput();
             }
         }
-        else if (isPauseDeath)
+        else if (GameManager.isPauseDeath)
             deathMenu.SetActive(true);
     }
 
 
     public void GetInput()
     {
-        isPause = !isPause;
+        GameManager.isPause = !GameManager.isPause;
 
-        if (isPause && !isPauseDeath)
+        if (GameManager.isPause && !GameManager.isPauseDeath)
         {
             canvasPause.SetActive(true);
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        else if (isPause == false && !isPauseDeath)
+        else if (!GameManager.isPause && !GameManager.isPauseDeath)
         {
             canvasPause.SetActive(false);
             deathMenu.SetActive(false);
