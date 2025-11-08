@@ -122,7 +122,7 @@ public class AccuracyController : MonoBehaviour
 
     private void UnblockSkin(int level)
     {
-        if (getAccuracy() > 90 && level == 1)
+        if (getAccuracy() >= 90 && level == 1)
             PlayerPrefs.SetInt("Skin_1", 1);
 
         if (getAccuracy() >= 100 && level == 1)
