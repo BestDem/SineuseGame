@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.layer == 6)
+        if (collider.gameObject.layer == 6 && !GameManager.isShifting)
         {
             DeathMenuOn();
         }

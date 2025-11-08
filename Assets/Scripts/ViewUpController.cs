@@ -7,7 +7,6 @@ public class ViewUpController : MonoBehaviour
 {
     private Rigidbody player;
     private int currentPos = 1;
-    private bool isShifting = false;
     private float shift = 3f;
     private float shiftTime = 0.05f;
 
@@ -17,7 +16,7 @@ public class ViewUpController : MonoBehaviour
     }
     public void Move(float direction)
     {
-        if (isShifting) {
+        if (GameManager.isShifting) {
             return;
         }
 
@@ -43,7 +42,7 @@ public class ViewUpController : MonoBehaviour
         {
             currentPos = currentPos + 1;
             StartCoroutine(DoShift(1f));
-            isShifting = true;
+            GameManager.isShifting = true;
         }
         else
         {
@@ -57,7 +56,7 @@ public class ViewUpController : MonoBehaviour
         {
             currentPos = currentPos - 1;
             StartCoroutine(DoShift(-1f));
-            isShifting = true;
+            GameManager.isShifting = true;
         }
         else
         {
@@ -85,6 +84,6 @@ public class ViewUpController : MonoBehaviour
                 break;
             }
         }
-        isShifting = false;
+        GameManager.isShifting = false;
     }
 }
