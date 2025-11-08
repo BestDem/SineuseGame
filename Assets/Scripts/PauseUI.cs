@@ -3,11 +3,15 @@ using System.Collections;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class PauseUI : MonoBehaviour
 {
     [SerializeField] private GameObject deathMenu;
     [SerializeField] private GameObject canvasPause;
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider soundSlider;
     [SerializeField][CanBeNull] private PlayableDirector tartDelayTimeline;
 
     private void Awake()
@@ -53,6 +57,8 @@ public class PauseUI : MonoBehaviour
         if (GameManager.isPause && !GameManager.isPauseDeath)
         {
             canvasPause.SetActive(true);
+            musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 0);
+            soundSlider.value = PlayerPrefs.GetFloat("SoundVolume", 0);
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

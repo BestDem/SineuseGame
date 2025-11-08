@@ -10,6 +10,8 @@ public class SoundController : MonoBehaviour
     [SerializeField] private AudioClip[] audioClips;
     [SerializeField] private PauseUI pauseUI;
     [SerializeField] private AudioMixerGroup audioMixerMusic;
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private AudioMixer soundMixer;
 
     private void Start()
     {
@@ -33,6 +35,7 @@ public class SoundController : MonoBehaviour
     
     private void PlaySound3D(AudioClip audioClip, Vector3 transformSound)
     {
+        MusicSetup();
         GameObject AudioSource2D = Instantiate(sourse3DPref, transformSound, Quaternion.identity);
 
         AudioSource2D.TryGetComponent(out AudioSource _audioSource);
@@ -45,6 +48,7 @@ public class SoundController : MonoBehaviour
 
     private void PlaySound2D(AudioClip audioClip)
     {
+        MusicSetup();
         GameObject AudioSource2D = Instantiate(sourse2DPref, transform.position, Quaternion.identity);
 
         AudioSource2D.TryGetComponent(out AudioSource _audioSource);
@@ -76,5 +80,13 @@ public class SoundController : MonoBehaviour
         }
 
         Destroy(_prefSound);
+    }
+
+    private void MusicSetup()
+    {
+        float musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0);
+        float soundVolume = PlayerPrefs.GetFloat("SoundVolume", 0);
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume) * 50);
+        soundMixer.SetFloat("SoundVolume", Mathf.Log10(soundVolume) * 50);
     }
 }

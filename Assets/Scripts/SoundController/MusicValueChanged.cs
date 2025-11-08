@@ -8,17 +8,20 @@ public class MusicValueChanged : MonoBehaviour
     [SerializeField] private AudioMixer audioMixerSound;
     [SerializeField] private Slider volumeAudioMusic;
     [SerializeField] private Slider volumeAudioSound;
-    private float musicVolume = 1f;
+    private float musicVolume = 0.2f;
     private float soundVolume = 1f;
 
     private void Start()
     {
-        musicVolume = PlayerPrefs.GetFloat("MusicVolume");
-        soundVolume = PlayerPrefs.GetFloat("SoundVolume");
+        musicVolume = PlayerPrefs.GetFloat("MusicVolume", musicVolume);
+        soundVolume = PlayerPrefs.GetFloat("SoundVolume", soundVolume);
         volumeAudioMusic.value = musicVolume;
         volumeAudioSound.value = soundVolume;
         audioMixerMusic.SetFloat("MusicVolume", musicVolume);
-        audioMixerMusic.SetFloat("SoundVolume", soundVolume);
+        audioMixerSound.SetFloat("SoundVolume", soundVolume);
+        PlayerPrefs.SetFloat("MusicVolume", musicVolume);
+        PlayerPrefs.SetFloat("SoundVolume", soundVolume);
+        PlayerPrefs.Save();
     }
 
     public void SetVolumeMusic(float newVolume)
@@ -30,9 +33,9 @@ public class MusicValueChanged : MonoBehaviour
         }
         else
         {
-            musicVolume = Mathf.Log10(musicVolume) * 20;
+           
         }
-        audioMixerMusic.SetFloat("MusicVolume", musicVolume);
+        audioMixerMusic.SetFloat("MusicVolume", Mathf.Log10(musicVolume) * 50);
 
         PlayerPrefs.SetFloat("MusicVolume", musicVolume);
         PlayerPrefs.Save();
@@ -46,9 +49,9 @@ public class MusicValueChanged : MonoBehaviour
         }
         else
         {
-            soundVolume = Mathf.Log10(soundVolume) * 20;
+            
         }
-        audioMixerSound.SetFloat("SoundVolume", soundVolume);
+        audioMixerSound.SetFloat("SoundVolume", Mathf.Log10(soundVolume) * 50);
 
         PlayerPrefs.SetFloat("SoundVolume", soundVolume);
         PlayerPrefs.Save();
